@@ -1,6 +1,7 @@
 'use client';
 
 import { useActionState } from 'react';
+
 import { signUpAction } from '@/action/sign-up';
 
 export default function Page() {

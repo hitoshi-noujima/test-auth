@@ -1,9 +1,11 @@
 'use server';
 
 import { redirect } from 'next/navigation';
+
 import { auth } from '@/lib/auth';
-import { translateAuthError } from '../helpers/translate-auth-error';
+
 import { signUpSchema } from './schema';
+import { translateAuthError } from '../helpers/translate-auth-error';
 
 import type { ActionState } from '../types';
 

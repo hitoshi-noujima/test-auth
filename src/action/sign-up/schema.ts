@@ -1,5 +1,6 @@
 import { z } from 'zod';
-import { emailSchema, passwordSchema, nameSchema } from '../schemas/auth';
+
+import { emailSchema, nameSchema, passwordSchema } from '../schemas/auth';
 
 // sign-up固有のスキーマ
 export const signUpSchema = z.object({

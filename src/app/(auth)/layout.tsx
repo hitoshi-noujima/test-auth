@@ -1,9 +1,10 @@
-import { auth } from '@/lib/auth';
 import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
 
-import type { ReactNode } from 'react';
+import { auth } from '@/lib/auth';
+
 import type { Metadata } from 'next';
+import type { ReactNode } from 'react';
 
 export const metadata: Metadata = {
   title: 'Dashboard Page',

@@ -1,5 +1,7 @@
-import { env } from '@/config/env';
 import { drizzle } from 'drizzle-orm/libsql';
+
+import { env } from '@/config/env';
+
 import * as schema from './schema';
 
 export const database = drizzle({
