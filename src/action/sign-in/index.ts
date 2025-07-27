@@ -2,27 +2,32 @@
 
 import { redirect } from 'next/navigation';
 import { auth } from '@/lib/auth';
+import { translateAuthError } from '../helpers/translate-auth-error';
+import { signInSchema } from './schema';
 
-type SignUpState = {
-  error?: {
-    message: string;
-  };
-} | null;
+import type { ActionState } from '../types';
 
 export async function signInAction(
-  _prevState: SignUpState,
+  _prevState: ActionState,
   formData: FormData
-): Promise<SignUpState> {
-  const email = formData.get('email');
-  const password = formData.get('password');
+): Promise<ActionState> {
+  const parseResult = signInSchema.safeParse({
+    email: formData.get('email'),
+    password: formData.get('password'),
+  });
 
-  if (typeof email !== 'string' || typeof password !== 'string') {
+  if (!parseResult.success) {
+    // 最初のエラーを取得してActionStateに変換
+    const firstError = parseResult.error.issues[0];
     return {
       error: {
-        message: '不正な値だよ',
+        message: firstError.message,
+        field: firstError.path[0]?.toString(),
       },
     };
   }
+
+  const { email, password } = parseResult.data;
 
   try {
     await auth.api.signInEmail({
@@ -34,8 +39,7 @@ export async function signInAction(
   } catch (error) {
     return {
       error: {
-        message:
-          error instanceof Error ? error.message : 'サインインに失敗しました',
+        message: translateAuthError(error),
       },
     };
   }

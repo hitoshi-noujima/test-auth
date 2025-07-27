@@ -2,32 +2,33 @@
 
 import { redirect } from 'next/navigation';
 import { auth } from '@/lib/auth';
+import { translateAuthError } from '../helpers/translate-auth-error';
+import { signUpSchema } from './schema';
 
-type SignUpState = {
-  error?: {
-    message: string;
-  };
-} | null;
+import type { ActionState } from '../types';
 
 export async function signUpAction(
-  _prevState: SignUpState,
+  _prevState: ActionState,
   formData: FormData
-): Promise<SignUpState> {
-  const email = formData.get('email');
-  const name = formData.get('name');
-  const password = formData.get('password');
+): Promise<ActionState> {
+  const parseResult = signUpSchema.safeParse({
+    email: formData.get('email'),
+    name: formData.get('name'),
+    password: formData.get('password'),
+  });
 
-  if (
-    typeof email !== 'string' ||
-    typeof name !== 'string' ||
-    typeof password !== 'string'
-  ) {
+  if (!parseResult.success) {
+    // 最初のエラーを取得してActionStateに変換
+    const firstError = parseResult.error.issues[0];
     return {
       error: {
-        message: '不正な値だよ',
+        message: firstError.message,
+        field: firstError.path[0]?.toString(),
       },
     };
   }
+
+  const { email, name, password } = parseResult.data;
 
   try {
     await auth.api.signUpEmail({
@@ -40,8 +41,7 @@ export async function signUpAction(
   } catch (error) {
     return {
       error: {
-        message:
-          error instanceof Error ? error.message : 'サインアップに失敗しました',
+        message: translateAuthError(error),
       },
     };
   }
