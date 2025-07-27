@@ -14,7 +14,7 @@ export default function RootLayout({
   children: ReactNode;
 }>) {
   return (
-    <html lang='ja'>
+    <html lang="ja">
       <body>
         <main>{children}</main>
       </body>

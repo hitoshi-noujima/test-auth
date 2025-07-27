@@ -64,7 +64,7 @@ export const account = sqliteTable(
   (table) => [
     // 1ユーザー・1プロバイダーにつき1アカウントの制約
     unique().on(table.userId, table.providerId),
-  ]
+  ],
 );
 
 export const verification = sqliteTable('verification', {
@@ -72,12 +72,8 @@ export const verification = sqliteTable('verification', {
   identifier: text('identifier').notNull(),
   value: text('value').notNull(),
   expiresAt: integer('expires_at', { mode: 'timestamp' }).notNull(),
-  createdAt: integer('created_at', { mode: 'timestamp' }).default(
-    sql`(CURRENT_TIMESTAMP)`
-  ),
-  updatedAt: integer('updated_at', { mode: 'timestamp' }).$onUpdate(
-    () => new Date()
-  ),
+  createdAt: integer('created_at', { mode: 'timestamp' }).default(sql`(CURRENT_TIMESTAMP)`),
+  updatedAt: integer('updated_at', { mode: 'timestamp' }).$onUpdate(() => new Date()),
 });
 
 export const rateLimit = sqliteTable('rate_limit', {
@@ -96,9 +92,7 @@ export const post = sqliteTable('post', {
   createdAt: integer('created_at', { mode: 'timestamp' })
     .default(sql`(CURRENT_TIMESTAMP)`)
     .notNull(),
-  updatedAt: integer('updated_at', { mode: 'timestamp' }).$onUpdate(
-    () => new Date()
-  ),
+  updatedAt: integer('updated_at', { mode: 'timestamp' }).$onUpdate(() => new Date()),
 });
 
 // ユーザーと投稿の1対多リレーション定義

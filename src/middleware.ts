@@ -14,15 +14,12 @@ export async function middleware(request: NextRequest) {
   // 保護されたページのパス（未認証の場合はアクセス禁止）
   const protectedPages = ['/dashboard'];
 
-  const { data: session } = await betterFetch<Session>(
-    '/api/auth/get-session',
-    {
-      baseURL: request.nextUrl.origin,
-      headers: {
-        cookie: request.headers.get('cookie') || '',
-      },
-    }
-  );
+  const { data: session } = await betterFetch<Session>('/api/auth/get-session', {
+    baseURL: request.nextUrl.origin,
+    headers: {
+      cookie: request.headers.get('cookie') || '',
+    },
+  });
 
   // 認証済みユーザーが認証ページにアクセスした場合
   if (session && authPages.includes(pathname)) {

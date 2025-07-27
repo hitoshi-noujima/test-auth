@@ -9,7 +9,7 @@ export default function Page() {
       <p>認証ユーザーじゃないと見れないよ！！</p>
 
       <button
-        type='button'
+        type="button"
         onClick={async () => {
           await authClient.signOut();
           redirect('/');

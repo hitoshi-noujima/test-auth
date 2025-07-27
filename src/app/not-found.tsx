@@ -15,7 +15,7 @@ export default function NotFound() {
   return (
     <div>
       <h1>404 - Not Found</h1>
-      <Link href='/'>Topへ戻る</Link>
+      <Link href="/">Topへ戻る</Link>
     </div>
   );
 }

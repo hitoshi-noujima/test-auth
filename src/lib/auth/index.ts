@@ -24,17 +24,17 @@ export const auth = betterAuth({
     max: 5, // 15分間で最大5回の試行
     customRules: {
       // サインインエンドポイントの制限をより厳しく
-      "/sign-in/email": {
+      '/sign-in/email': {
         window: 900, // 15分間
         max: 5, // 最大5回
       },
       // サインアップエンドポイントも制限
-      "/sign-up/email": {
+      '/sign-up/email': {
         window: 3600, // 1時間
         max: 3, // 最大3回
       },
     },
-    storage: "database", // データベースに保存
+    storage: 'database', // データベースに保存
   },
   plugins: [nextCookies()],
 });

@@ -9,7 +9,7 @@ import type { ActionState } from '../types';
 
 export async function signInAction(
   _prevState: ActionState,
-  formData: FormData
+  formData: FormData,
 ): Promise<ActionState> {
   const parseResult = signInSchema.safeParse({
     email: formData.get('email'),
