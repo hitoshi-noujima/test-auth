@@ -1,6 +1,6 @@
 import { drizzle } from 'drizzle-orm/libsql';
 
-import { env } from '@/config/env';
+import { env } from '@/shared/config/env';
 
 import * as schema from './schema';
 

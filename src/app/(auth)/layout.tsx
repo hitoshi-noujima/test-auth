@@ -1,18 +1,17 @@
 import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
 
-import { auth } from '@/lib/auth';
+import { auth } from '@/shared/lib/auth';
 
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
 
 export const metadata: Metadata = {
-  title: 'Dashboard Page',
-  description: 'Dashboard Page',
-  robots: {
-    index: false,
-    follow: false,
+  title: {
+    template: '%s | dashboard | Auth Test',
+    default: 'dashboard',
   },
+  description: 'dashboard',
 };
 
 export default async function DashboardLayout({

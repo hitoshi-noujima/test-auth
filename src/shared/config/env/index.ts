@@ -3,13 +3,13 @@ import { z } from 'zod';
 
 export const env = createEnv({
   server: {
-    TURSO_DATABASE_URL: z.url(),
+    TURSO_DATABASE_URL: z.string().url(),
     TURSO_AUTH_TOKEN: z.string(),
-    BETTER_AUTH_URL: z.url(),
+    BETTER_AUTH_URL: z.string().url(),
     BETTER_AUTH_SECRET: z.string(),
   },
   client: {
-    NEXT_PUBLIC_APP_URL: z.url(),
+    NEXT_PUBLIC_APP_URL: z.string().url(),
   },
   runtimeEnv: {
     NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,

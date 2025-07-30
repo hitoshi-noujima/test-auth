@@ -1,31 +1,66 @@
 'use client';
 
+import { getFormProps, getInputProps, useForm } from '@conform-to/react';
+import { parseWithZod } from '@conform-to/zod';
 import { useActionState } from 'react';
 
-import { signUpAction } from '@/action/sign-up';
+import { signUpSchema } from '@/features/auth/schemas';
+import { signUpAction } from '@/features/auth/sign-up/actions';
+
+import type { Metadata } from 'next';
+
+// export const metadata: Metadata = {
+//   title: 'Sign Up',
+//   description: 'Sign Up',
+// };
 
 export default function Page() {
-  const [state, formAction, isPending] = useActionState(signUpAction, null);
+  const [state, formAction, isPending] = useActionState(signUpAction, undefined);
+
+  const [form, fields] = useForm({
+    lastResult: state,
+    onValidate({ formData }) {
+      return parseWithZod(formData, { schema: signUpSchema });
+    },
+  });
 
   return (
-    <form action={formAction}>
-      {state?.error?.message && <p className="text-red-500">{state.error.message}</p>}
+    <form action={formAction} {...getFormProps(form)}>
+      {form.errors && (
+        <ul className="text-red-500">
+          {form.errors.map((error) => (
+            <li key={error}>{error}</li>
+          ))}
+        </ul>
+      )}
 
       <h1>サインアップ</h1>
 
       <div>
-        <label htmlFor="name">名前</label>
-        <input id="name" name="name" type="text" required />
+        <label htmlFor={fields.name.id}>名前</label>
+        <input {...getInputProps(fields.name, { type: 'text' })} key={fields.name.key} />
+        <p id={fields.name.errorId} className="text-red-500">
+          {fields.name.errors}
+        </p>
       </div>
 
       <div>
-        <label htmlFor="email">メールアドレス</label>
-        <input id="email" name="email" type="email" required />
+        <label htmlFor={fields.email.id}>メールアドレス</label>
+        <input {...getInputProps(fields.email, { type: 'email' })} key={fields.email.key} />
+        <p id={fields.email.errorId} className="text-red-500">
+          {fields.email.errors}
+        </p>
       </div>
 
       <div>
-        <label htmlFor="password">パスワード</label>
-        <input id="password" name="password" type="password" required />
+        <label htmlFor={fields.password.id}>パスワード</label>
+        <input
+          {...getInputProps(fields.password, { type: 'password' })}
+          key={fields.password.key}
+        />
+        <p id={fields.password.errorId} className="text-red-500">
+          {fields.password.errors}
+        </p>
       </div>
 
       <button type="submit" disabled={isPending}>
