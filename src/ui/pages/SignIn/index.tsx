@@ -8,9 +8,9 @@ import { signInSchema } from '@/features/auth/schemas';
 import { signInAction } from '@/features/auth/sign-in/actions';
 import { AlertText } from '@/ui/elements/AlertText';
 import { Heading } from '@/ui/elements/Heading';
-import { Label } from '@/ui/elements/Label';
 import { TextField } from '@/ui/elements/TextField';
-import { ButtonWithIcon } from '@/ui/widgets/ButtonWithIcon';
+import { ButtonWithLoading } from '@/ui/widgets/ButtonWithLoading';
+import { LabelWithBadge } from '@/ui/widgets/LabelWithBadge';
 
 export const SignIn: React.FC = () => {
   const [state, formAction, isPending] = useActionState(signInAction, undefined);
@@ -32,28 +32,42 @@ export const SignIn: React.FC = () => {
         </ul>
       )}
 
-      <Heading level={1}>サインイン</Heading>
+      <div className="grid grid-cols-1 gap-4">
+        <Heading level={1}>サインイン</Heading>
 
-      <div className="fieldset">
-        <Label htmlFor={fields.email.id}>メールアドレス</Label>
-        <TextField
-          {...getInputProps(fields.email, { type: 'email' })}
-          key={fields.email.key}
-          placeholder="email@example.com"
-        />
-        <AlertText id={fields.email.errorId}>{fields.email.errors}</AlertText>
+        <div className="grid grid-cols-1 gap-2">
+          <div>
+            <LabelWithBadge htmlFor={fields.email.id} required>
+              メールアドレス
+            </LabelWithBadge>
+          </div>
+          <TextField
+            {...getInputProps(fields.email, { type: 'email' })}
+            key={fields.email.key}
+            placeholder="email@example.com"
+          />
+          <AlertText id={fields.email.errorId}>{fields.email.errors}</AlertText>
+        </div>
 
-        <Label htmlFor={fields.password.id}>パスワード</Label>
-        <TextField
-          {...getInputProps(fields.password, { type: 'password' })}
-          key={fields.password.key}
-        />
-        <AlertText id={fields.password.errorId}>{fields.password.errors}</AlertText>
+        <div className="grid grid-cols-1 gap-2">
+          <div>
+            <LabelWithBadge htmlFor={fields.password.id} required>
+              パスワード
+            </LabelWithBadge>
+          </div>
+          <TextField
+            {...getInputProps(fields.password, { type: 'password' })}
+            key={fields.password.key}
+          />
+          <AlertText id={fields.password.errorId}>{fields.password.errors}</AlertText>
+        </div>
+
+        <div>
+          <ButtonWithLoading type="submit" disabled={isPending} loading={isPending}>
+            サインイン
+          </ButtonWithLoading>
+        </div>
       </div>
-
-      <ButtonWithIcon type="submit" disabled={isPending} loading={isPending}>
-        サインイン
-      </ButtonWithIcon>
     </form>
   );
 };

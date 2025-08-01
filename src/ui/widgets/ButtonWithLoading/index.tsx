@@ -7,7 +7,7 @@ type Props = ComponentProps<typeof Button> & {
   loading?: boolean;
 };
 
-export const ButtonWithIcon: React.FC<Props> = ({ loading = false, children, ...props }) => {
+export const ButtonWithLoading: React.FC<Props> = ({ loading = false, children, ...props }) => {
   return (
     <Button {...props}>
       {loading && <Loading />}

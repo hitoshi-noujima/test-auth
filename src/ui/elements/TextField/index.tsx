@@ -3,5 +3,5 @@ import type { ComponentPropsWithRef } from 'react';
 type Props = Omit<ComponentPropsWithRef<'input'>, 'className'>;
 
 export const TextField: React.FC<Props> = ({ type = 'text', ...props }) => {
-  return <input {...props} className="input validator" type={type} />;
+  return <input {...props} className="input" type={type} />;
 };

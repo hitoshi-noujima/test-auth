@@ -19,7 +19,7 @@ export default function RootLayout({
   return (
     <html lang="ja" data-theme="corporate">
       <body>
-        <main>{children}</main>
+        <main className="px-20 py-12">{children}</main>
       </body>
     </html>
   );
