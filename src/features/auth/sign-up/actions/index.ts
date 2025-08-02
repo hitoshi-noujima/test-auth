@@ -29,7 +29,12 @@ export async function signUpAction(_: unknown, formData: FormData) {
   } catch (error) {
     if (error instanceof APIError) {
       return submission.reply({
-        formErrors: [`${error.status}`, `${error.statusCode}`, error.message],
+        formErrors: [
+          `${error.body?.code}`,
+          `${error.status}`,
+          `${error.statusCode}`,
+          error.message,
+        ],
       });
     }
 

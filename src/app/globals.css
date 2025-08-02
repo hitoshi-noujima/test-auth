@@ -6,3 +6,7 @@
     dark --prefersdark,
     corporate;
 }
+
+@theme {
+  --font-sans: var(--font-noto-sans-jp);
+}
