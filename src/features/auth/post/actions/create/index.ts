@@ -1,13 +1,11 @@
 'use server';
 
 import { parseWithZod } from '@conform-to/zod';
-import { headers } from 'next/headers';
-import { redirect } from 'next/navigation';
 
 import { createPostSchema } from '@/features/auth/schemas/post';
-import { auth } from '@/shared/lib/auth';
+import { getCurrentUser } from '@/shared/lib/helpers';
 
-import { createPost } from '../../helpers/queries';
+import { createPost } from '../../queries';
 
 export async function createPostAction(_: unknown, formData: FormData) {
   const submission = parseWithZod(formData, {
@@ -19,11 +17,9 @@ export async function createPostAction(_: unknown, formData: FormData) {
   }
 
   // セッション確認
-  const session = await auth.api.getSession({
-    headers: await headers(),
-  });
+  const user = await getCurrentUser();
 
-  if (!session?.user) {
+  if (!user) {
     return submission.reply({
       formErrors: ['認証が必要です'],
     });
@@ -32,13 +28,12 @@ export async function createPostAction(_: unknown, formData: FormData) {
   const { title } = submission.value;
 
   try {
-    await createPost(title, session.user.id);
+    const response = await createPost(title, user.id);
+    return response;
   } catch (error) {
     console.error('Post creation error:', error);
     return submission.reply({
       formErrors: ['投稿の作成に失敗しました'],
     });
   }
-
-  redirect('/dashboard');
 }

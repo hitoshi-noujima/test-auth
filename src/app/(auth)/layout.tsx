@@ -1,4 +1,6 @@
-import { requireAuth } from './_action/require-auth';
+import { redirect } from 'next/navigation';
+
+import { getCurrentUser } from '@/shared/lib/helpers';
 
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
@@ -16,7 +18,11 @@ export default async function DashboardLayout({
 }: Readonly<{
   children: ReactNode;
 }>) {
-  await requireAuth();
+  const user = await getCurrentUser();
+
+  if (!user) {
+    redirect('/sign-in');
+  }
 
   return <>{children}</>;
 }
