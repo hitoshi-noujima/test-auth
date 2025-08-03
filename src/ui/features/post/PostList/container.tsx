@@ -1,4 +1,4 @@
-import { getAllPostsAction } from '@/features/auth/post/actions/get-all';
+import { getAllPostsAction } from '@/features/post/actions/get-all';
 
 import { PostListUI } from './ui';
 

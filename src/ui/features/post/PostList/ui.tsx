@@ -1,4 +1,4 @@
-import { Posts } from '@/features/auth/post/types';
+import { Posts } from '@/features/post/types';
 
 type Props = {
   posts: Posts;

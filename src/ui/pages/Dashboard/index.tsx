@@ -1,6 +1,6 @@
 import { Heading } from '@/ui/elements/Heading';
-import { PostList } from '@/ui/features/auth/PostList';
 import { SignOutButton } from '@/ui/features/auth/SignOutButton';
+import { PostList } from '@/ui/features/post/PostList';
 
 export const Dashboard: React.FC = () => {
   return (

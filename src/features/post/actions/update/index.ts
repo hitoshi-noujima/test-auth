@@ -2,7 +2,7 @@
 
 import { parseWithZod } from '@conform-to/zod';
 
-import { updatePostSchema } from '@/features/auth/schemas/post';
+import { updatePostSchema } from '@/features/post/schemas';
 import { getCurrentUser } from '@/shared/lib/helpers';
 
 import { updatePost } from '../../queries';

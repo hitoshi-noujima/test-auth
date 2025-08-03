@@ -4,7 +4,7 @@ import { getFormProps, getInputProps, useForm } from '@conform-to/react';
 import { parseWithZod } from '@conform-to/zod';
 import { useActionState } from 'react';
 
-import { signInSchema } from '@/features/auth/schemas/signInUp';
+import { signInSchema } from '@/features/auth/schemas';
 import { signInAction } from '@/features/auth/sign-in/actions';
 
 import { SignInFormUI } from './ui';
