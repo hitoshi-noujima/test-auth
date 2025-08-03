@@ -1,7 +1,4 @@
-import { headers } from 'next/headers';
-import { redirect } from 'next/navigation';
-
-import { auth } from '@/shared/lib/auth';
+import { requireAuth } from './_action/require-auth';
 
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
@@ -19,20 +16,7 @@ export default async function DashboardLayout({
 }: Readonly<{
   children: ReactNode;
 }>) {
-  const session = await auth.api.getSession({
-    headers: await headers(),
-  });
+  await requireAuth();
 
-  if (!session) {
-    redirect('/sign-in');
-  }
-
-  return (
-    <div>
-      <h1>ダッシュボード</h1>
-      <p>ようこそ {session.user.name} さん</p>
-      <hr />
-      {children}
-    </div>
-  );
+  return <>{children}</>;
 }

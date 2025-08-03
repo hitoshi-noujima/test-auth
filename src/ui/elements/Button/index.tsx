@@ -12,11 +12,13 @@ export const Button: React.FC<Props> = ({
   variant = 'primary',
   size = 'medium',
   outline = false,
+  type = 'button',
   ...props
 }) => {
   return (
     <button
       {...props}
+      type={type}
       className={clsx('btn', {
         'btn-primary': variant === 'primary',
         'btn-secondary': variant === 'secondary',

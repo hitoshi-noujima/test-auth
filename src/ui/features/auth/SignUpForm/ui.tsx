@@ -1,4 +1,4 @@
-import { ButtonWithLoading } from '@/ui/widgets/ButtonWithLoading';
+import { LoadingButton } from '@/ui/widgets/LoadingButton';
 
 import { AuthFormEmail, type Props as AuthFormEmailProps } from '../AuthFormEmail';
 import { AuthFormPassword, type Props as AuthFormPasswordProps } from '../AuthFormPassword';
@@ -70,9 +70,9 @@ export const SignUpFormUI: React.FC<Props> = ({
           fieldsPasswordProps={fieldsPasswordProps}
         />
         <div>
-          <ButtonWithLoading type="submit" disabled={isPending} loading={isPending}>
+          <LoadingButton type="submit" disabled={isPending} loading={isPending}>
             サインアップ
-          </ButtonWithLoading>
+          </LoadingButton>
         </div>
       </div>
     </form>

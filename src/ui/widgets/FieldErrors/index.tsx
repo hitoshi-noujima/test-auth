@@ -5,7 +5,7 @@ type Props = {
   errors: string[] | undefined;
 };
 
-export const AlertTextForForm: React.FC<Props> = ({ id, errors }) => {
+export const FieldErrors: React.FC<Props> = ({ id, errors }) => {
   return (
     <div id={id} aria-live="polite" role="alert">
       {errors?.map((error, index) => (

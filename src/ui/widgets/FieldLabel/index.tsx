@@ -7,7 +7,7 @@ type Props = ComponentProps<typeof Label> & {
   required?: boolean;
 };
 
-export const LabelForForm: React.FC<Props> = ({ children, required = false, ...props }) => {
+export const FieldLabel: React.FC<Props> = ({ children, required = false, ...props }) => {
   return (
     <Label {...props}>
       <span className="inline-flex items-center gap-2">

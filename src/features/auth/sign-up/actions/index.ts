@@ -4,7 +4,7 @@ import { parseWithZod } from '@conform-to/zod';
 import { APIError } from 'better-auth/api';
 import { redirect } from 'next/navigation';
 
-import { signUpSchema } from '@/features/auth/schemas';
+import { signUpSchema } from '@/features/auth/schemas/signInUp';
 import { auth } from '@/shared/lib/auth';
 
 export async function signUpAction(_: unknown, formData: FormData) {

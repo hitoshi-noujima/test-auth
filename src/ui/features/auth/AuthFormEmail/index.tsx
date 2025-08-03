@@ -1,6 +1,6 @@
 import { TextField } from '@/ui/elements/TextField';
-import { AlertTextForForm } from '@/ui/widgets/AlertTextForForm';
-import { LabelForForm } from '@/ui/widgets/LabelForForm';
+import { FieldErrors } from '@/ui/widgets/FieldErrors';
+import { FieldLabel } from '@/ui/widgets/FieldLabel';
 
 import type { InputHTMLAttributes } from 'react';
 
@@ -21,16 +21,16 @@ export const AuthFormEmail: React.FC<Props> = ({
 }) => {
   return (
     <div className="grid justify-items-start gap-2">
-      <LabelForForm htmlFor={fieldsEmailId} required>
+      <FieldLabel htmlFor={fieldsEmailId} required>
         メールアドレス
-      </LabelForForm>
+      </FieldLabel>
       <TextField
         {...fieldsEmailProps}
         key={fieldsEmailKey}
         placeholder="email@example.com"
         autoComplete="email"
       />
-      <AlertTextForForm id={fieldsEmailErrorId} errors={fieldsEmailErrors} />
+      <FieldErrors id={fieldsEmailErrorId} errors={fieldsEmailErrors} />
     </div>
   );
 };

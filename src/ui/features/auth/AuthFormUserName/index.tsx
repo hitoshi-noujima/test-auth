@@ -1,6 +1,6 @@
 import { TextField } from '@/ui/elements/TextField';
-import { AlertTextForForm } from '@/ui/widgets/AlertTextForForm';
-import { LabelForForm } from '@/ui/widgets/LabelForForm';
+import { FieldErrors } from '@/ui/widgets/FieldErrors';
+import { FieldLabel } from '@/ui/widgets/FieldLabel';
 
 import type { InputHTMLAttributes } from 'react';
 
@@ -21,9 +21,9 @@ export const AuthFormUserName: React.FC<Props> = ({
 }) => {
   return (
     <div className="grid justify-items-start gap-2">
-      <LabelForForm htmlFor={fieldsUserNameId} required>
+      <FieldLabel htmlFor={fieldsUserNameId} required>
         名前
-      </LabelForForm>
+      </FieldLabel>
       <TextField
         {...fieldsUserNameProps}
         key={fieldsUserNameKey}
@@ -32,7 +32,7 @@ export const AuthFormUserName: React.FC<Props> = ({
         autoCorrect="off"
         autoCapitalize="off"
       />
-      <AlertTextForForm id={fieldsUserNameErrorId} errors={fieldsUserNameErrors} />
+      <FieldErrors id={fieldsUserNameErrorId} errors={fieldsUserNameErrors} />
     </div>
   );
 };

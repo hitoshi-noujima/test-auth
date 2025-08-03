@@ -1,6 +1,6 @@
 import { TextField } from '@/ui/elements/TextField';
-import { AlertTextForForm } from '@/ui/widgets/AlertTextForForm';
-import { LabelForForm } from '@/ui/widgets/LabelForForm';
+import { FieldErrors } from '@/ui/widgets/FieldErrors';
+import { FieldLabel } from '@/ui/widgets/FieldLabel';
 
 import type { InputHTMLAttributes } from 'react';
 
@@ -21,11 +21,11 @@ export const AuthFormPassword: React.FC<Props> = ({
 }) => {
   return (
     <div className="grid justify-items-start gap-2">
-      <LabelForForm htmlFor={fieldsPasswordId} required>
+      <FieldLabel htmlFor={fieldsPasswordId} required>
         パスワード
-      </LabelForForm>
+      </FieldLabel>
       <TextField {...fieldsPasswordProps} key={fieldsPasswordKey} autoComplete="off" />
-      <AlertTextForForm id={fieldsPasswordErrorId} errors={fieldsPasswordErrors} />
+      <FieldErrors id={fieldsPasswordErrorId} errors={fieldsPasswordErrors} />
     </div>
   );
 };
