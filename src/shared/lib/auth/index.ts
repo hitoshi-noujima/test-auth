@@ -20,6 +20,10 @@ export const auth = betterAuth({
   database: drizzleAdapter(database, {
     provider: 'sqlite',
   }),
+  session: {
+    // セッション期限 3日間
+    expiresIn: 60 * 60 * 24 * 3,
+  },
   // レート制限設定（ブルートフォース攻撃対策）
   rateLimit: {
     enabled: true,

@@ -10,7 +10,7 @@ export const user = sqliteTable('user', {
     .notNull(),
   image: text('image'),
   createdAt: integer('created_at', { mode: 'timestamp' })
-    .default(sql`(CURRENT_TIMESTAMP)`)
+    .default(sql`(unixepoch())`)
     .notNull(),
   updatedAt: integer('updated_at', { mode: 'timestamp' })
     .$onUpdate(() => new Date())
@@ -27,7 +27,7 @@ export const session = sqliteTable('session', {
     .notNull()
     .references(() => user.id, { onDelete: 'cascade' }),
   createdAt: integer('created_at', { mode: 'timestamp' })
-    .default(sql`(CURRENT_TIMESTAMP)`)
+    .default(sql`(unixepoch())`)
     .notNull(),
   updatedAt: integer('updated_at', { mode: 'timestamp' })
     .$onUpdate(() => new Date())
@@ -55,7 +55,7 @@ export const account = sqliteTable(
     scope: text('scope'),
     password: text('password'),
     createdAt: integer('created_at', { mode: 'timestamp' })
-      .default(sql`(CURRENT_TIMESTAMP)`)
+      .default(sql`(unixepoch())`)
       .notNull(),
     updatedAt: integer('updated_at', { mode: 'timestamp' })
       .$onUpdate(() => new Date())
@@ -72,7 +72,9 @@ export const verification = sqliteTable('verification', {
   identifier: text('identifier').notNull(),
   value: text('value').notNull(),
   expiresAt: integer('expires_at', { mode: 'timestamp' }).notNull(),
-  createdAt: integer('created_at', { mode: 'timestamp' }).default(sql`(CURRENT_TIMESTAMP)`),
+  createdAt: integer('created_at', { mode: 'timestamp' })
+    .default(sql`(unixepoch())`)
+    .notNull(),
   updatedAt: integer('updated_at', { mode: 'timestamp' }).$onUpdate(() => new Date()),
 });
 
@@ -90,7 +92,7 @@ export const post = sqliteTable('post', {
     .notNull()
     .references(() => user.id, { onDelete: 'cascade' }),
   createdAt: integer('created_at', { mode: 'timestamp' })
-    .default(sql`(CURRENT_TIMESTAMP)`)
+    .default(sql`(unixepoch())`)
     .notNull(),
   updatedAt: integer('updated_at', { mode: 'timestamp' }).$onUpdate(() => new Date()),
 });

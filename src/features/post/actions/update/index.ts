@@ -1,11 +1,11 @@
 'use server';
 
 import { parseWithZod } from '@conform-to/zod';
+import { revalidatePath } from 'next/cache';
 
+import { PostRepository } from '@/features/post/repository';
 import { updatePostSchema } from '@/features/post/schemas';
-import { getCurrentUser } from '@/shared/lib/helpers';
-
-import { updatePost } from '../../queries';
+import { getCurrentUser } from '@/shared/lib/helpers/get-current-user';
 
 export async function updatePostAction(_: unknown, formData: FormData) {
   const submission = parseWithZod(formData, {
@@ -28,7 +28,8 @@ export async function updatePostAction(_: unknown, formData: FormData) {
   const { id, title } = submission.value;
 
   try {
-    const updatedPost = await updatePost(id, title, user.id);
+    const repository = new PostRepository();
+    const updatedPost = await repository.updatePost(id, title, user.id);
 
     if (!updatedPost) {
       return submission.reply({
@@ -36,7 +37,7 @@ export async function updatePostAction(_: unknown, formData: FormData) {
       });
     }
 
-    return updatedPost;
+    revalidatePath('/dashboard');
   } catch (error) {
     console.error('Post update error:', error);
     return submission.reply({

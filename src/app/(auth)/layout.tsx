@@ -1,6 +1,6 @@
 import { redirect } from 'next/navigation';
 
-import { getCurrentUser } from '@/shared/lib/helpers';
+import { getCurrentUser } from '@/shared/lib/helpers/get-current-user';
 
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';

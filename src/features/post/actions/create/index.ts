@@ -1,11 +1,11 @@
 'use server';
 
 import { parseWithZod } from '@conform-to/zod';
+import { revalidatePath } from 'next/cache';
 
+import { PostRepository } from '@/features/post/repository';
 import { createPostSchema } from '@/features/post/schemas';
-import { getCurrentUser } from '@/shared/lib/helpers';
-
-import { createPost } from '../../queries';
+import { getCurrentUser } from '@/shared/lib/helpers/get-current-user';
 
 export async function createPostAction(_: unknown, formData: FormData) {
   const submission = parseWithZod(formData, {
@@ -28,8 +28,9 @@ export async function createPostAction(_: unknown, formData: FormData) {
   const { title } = submission.value;
 
   try {
-    const response = await createPost(title, user.id);
-    return response;
+    const repository = new PostRepository();
+    await repository.createPost(title, user.id);
+    revalidatePath('/dashboard');
   } catch (error) {
     console.error('Post creation error:', error);
     return submission.reply({

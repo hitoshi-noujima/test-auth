@@ -1,5 +1,6 @@
 import { Heading } from '@/ui/elements/Heading';
 import { SignOutButton } from '@/ui/features/auth/SignOutButton';
+import { CreatePostForm } from '@/ui/features/post/CreatePostForm';
 import { PostList } from '@/ui/features/post/PostList';
 
 export const Dashboard: React.FC = () => {
@@ -10,6 +11,7 @@ export const Dashboard: React.FC = () => {
         <SignOutButton />
 
         <div className="mt-2">
+          <CreatePostForm />
           <PostList />
         </div>
       </div>

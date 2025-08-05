@@ -8,7 +8,7 @@ const titleSchema = z
   .string({
     required_error: 'タイトルは必須です',
   })
-  .max(100, 'タイトルは100文字以内で入力してください');
+  .max(150, 'タイトルは150文字以内で入力してください');
 
 export const createPostSchema = z.object({
   title: titleSchema,

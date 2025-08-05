@@ -1,11 +1,11 @@
 'use server';
 
 import { parseWithZod } from '@conform-to/zod';
+import { revalidatePath } from 'next/cache';
 
+import { PostRepository } from '@/features/post/repository';
 import { deletePostSchema } from '@/features/post/schemas';
-import { getCurrentUser } from '@/shared/lib/helpers';
-
-import { deletePost } from '../../queries';
+import { getCurrentUser } from '@/shared/lib/helpers/get-current-user';
 
 export async function deletePostAction(_: unknown, formData: FormData) {
   const submission = parseWithZod(formData, {
@@ -28,7 +28,8 @@ export async function deletePostAction(_: unknown, formData: FormData) {
   const { id } = submission.value;
 
   try {
-    const deletedPost = await deletePost(id, user.id);
+    const repository = new PostRepository();
+    const deletedPost = await repository.deletePost(id, user.id);
 
     if (!deletedPost) {
       return submission.reply({
@@ -36,7 +37,7 @@ export async function deletePostAction(_: unknown, formData: FormData) {
       });
     }
 
-    return deletedPost;
+    revalidatePath('/dashboard');
   } catch (error) {
     console.error('Post delete error:', error);
     return submission.reply({

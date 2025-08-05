@@ -1,8 +1,7 @@
 'use server';
 
-import { getCurrentUser } from '@/shared/lib/helpers';
-
-import { getUserPosts } from '../../queries';
+import { PostRepository } from '@/features/post/repository';
+import { getCurrentUser } from '@/shared/lib/helpers/get-current-user';
 
 export async function getAllPostsAction() {
   // セッション確認
@@ -13,10 +12,8 @@ export async function getAllPostsAction() {
   }
 
   try {
-    // テスト用: 3秒遅延
-    await new Promise((resolve) => setTimeout(resolve, 3000));
-
-    const posts = await getUserPosts(user.id);
+    const repository = new PostRepository();
+    const posts = await repository.getUserPosts(user.id);
     return posts;
   } catch (error) {
     console.error('Posts fetch error:', error);
